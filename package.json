@@ -17,19 +17,26 @@
     "@mantine/core": "^7.6.2",
     "@mantine/dropzone": "^7.6.2",
     "@mantine/hooks": "^7.6.2",
+    "@wavesurfer/react": "^1.0.4",
+    "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.22.3"
+    "react-router-dom": "^6.22.3",
+    "styled-components": "^6.1.8",
+    "wavefile": "^11.0.0"
   },
   "devDependencies": {
     "@types/chrome": "^0.0.263",
+    "@types/lodash": "^4.17.0",
     "@types/react": "^18.2.64",
     "@types/react-dom": "^18.2.21",
     "@types/react-router-dom": "^5.3.3",
+    "@types/wicg-file-system-access": "^2023.10.5",
     "@typescript-eslint/eslint-plugin": "^7.1.1",
     "@typescript-eslint/parser": "^7.1.1",
     "@vitejs/plugin-react-swc": "^3.5.0",
     "eslint": "^8.57.0",
+    "eslint-config-mantine": "^3.2.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
     "postcss": "^8.4.37",
@@ -38,7 +45,7 @@
     "prettier": "^3.2.5",
     "stylelint": "^16.2.1",
     "stylelint-config-standard-scss": "^13.0.0",
-    "typescript": "^5.2.2",
+    "typescript": "^5.4.2",
     "vite": "^5.1.6",
     "vite-tsconfig-paths": "^4.3.2"
   }
