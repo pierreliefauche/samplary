@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react"
-import WavesurferPlayer from "@wavesurfer/react"
 import { getSampleFileHandle, getSampleName } from "../../../utils"
 import { getFileUrl } from "../../../../../utils"
-import { Card } from "@radix-ui/themes"
+import { Outer, Wave, WaveOuter, WaveInner } from "./styled"
 
 type SamplesListItemProps = {
   bankDirHandle: FileSystemDirectoryHandle
@@ -25,23 +24,17 @@ export const SamplesListItem = ({
   }, [setWavUrl, wavFileHandle])
 
   return (
-    <Card>
+    <Outer>
       {`Sample ${sampleNumber} `}
       {getSampleName(wavFileHandle)}
-      <WavesurferPlayer
-        height={100}
-        width={600}
-        waveColor={"lightgrey"}
-        url={wavUrl}
-        mediaControls
-        barWidth={1}
-        progressColor={"grey"}
-        // barGap={1}
-        // media[]
-        // onReady={onReady}
-        // onPlay={() => setIsPlaying(true)}
-        // onPause={() => setIsPlaying(false)}
-      />
-    </Card>
+
+      <WaveOuter>
+        <WaveInner>
+          <Wave
+            url={wavUrl}
+          />
+        </WaveInner>
+      </WaveOuter>
+    </Outer>
   )
 }
