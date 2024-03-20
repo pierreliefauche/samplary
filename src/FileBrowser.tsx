@@ -1,6 +1,6 @@
-import { Button, Stack } from '@mantine/core'
-import { useCallback, useState } from 'react'
-import { AlmSquidSalmpleBrowser } from './browsers/alm-squid-salmple'
+import { useCallback, useState } from "react"
+import { AlmSquidSalmpleBrowser } from "./browsers/alm-squid-salmple"
+import { Button } from "@radix-ui/themes"
 
 export default function FileBrowser() {
   const [dirHandle, setDirHandle] = useState<FileSystemDirectoryHandle>()
@@ -10,9 +10,11 @@ export default function FileBrowser() {
   }, [setDirHandle])
 
   return (
-    <Stack mah={300}>
-      <Button onClick={selectDirectory}>{dirHandle?.name || 'Select Directory'}</Button>
+    <>
+      <Button onClick={selectDirectory}>
+        {dirHandle?.name || "Select Directory"}
+      </Button>
       {!!dirHandle && <AlmSquidSalmpleBrowser rootDirHandle={dirHandle} />}
-    </Stack>
+    </>
   )
 }

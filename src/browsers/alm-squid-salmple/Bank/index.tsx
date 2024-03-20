@@ -1,14 +1,14 @@
-import { Box, BoxComponentProps, Stack } from '@mantine/core'
-import { useEffect, useState } from 'react'
-import { getBankDirHandle, getBankName } from '../utils'
-import { SamplesList } from './SamplesList'
+import { ComponentProps, useEffect, useState } from "react"
+import { getBankDirHandle, getBankName } from "../utils"
+import { SamplesList } from "./SamplesList"
+import { Outer, Header, Title } from "./styled"
 
-type BankProps = BoxComponentProps & {
+type BankProps = ComponentProps<typeof Outer> & {
   rootDirHandle: FileSystemDirectoryHandle
   bankNumber: number
 }
 
-export const Bank = ({ rootDirHandle, bankNumber }: BankProps) => {
+export const Bank = ({ rootDirHandle, bankNumber, ...props }: BankProps) => {
   const [dirHandle, setDirHandle] = useState<FileSystemDirectoryHandle>()
   const [bankName, setBankName] = useState<string>()
 
@@ -22,9 +22,11 @@ export const Bank = ({ rootDirHandle, bankNumber }: BankProps) => {
   }, [setDirHandle, setBankName, rootDirHandle, bankNumber])
 
   return (
-    <Stack bg={'cyan'}>
-      <Box>{`Bank ${bankNumber}: ${bankName}`}</Box>
+    <Outer {...props}>
+      <Header>
+        <Title>{`Bank ${bankNumber}: ${bankName}`}</Title>
+      </Header>
       {!!dirHandle && <SamplesList bankDirHandle={dirHandle} />}
-    </Stack>
+    </Outer>
   )
 }

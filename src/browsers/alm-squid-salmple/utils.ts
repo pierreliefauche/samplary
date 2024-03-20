@@ -1,19 +1,20 @@
-import { isWavFileHandle } from '../../utils'
+import { isWavFileHandle } from "../../utils"
 
-const BANK_NAME_FILE = 'info.txt'
+const BANK_NAME_FILE = "info.txt"
 
 const bankDirName = (bankNumber: number): string => `Bank ${bankNumber}`
-const legacySampleFileName = (sampleNumber: number): string => `chan-00${sampleNumber}.wav`
+const legacySampleFileName = (sampleNumber: number): string =>
+  `chan-00${sampleNumber}.wav`
 
 export const getBankDirHandle = (
   rootDirHandle: FileSystemDirectoryHandle,
-  bankNumber: number
+  bankNumber: number,
 ): Promise<FileSystemDirectoryHandle> => {
   return rootDirHandle.getDirectoryHandle(bankDirName(bankNumber))
 }
 
 export const getBankName = async (
-  bankDirHandle: FileSystemDirectoryHandle | undefined | null
+  bankDirHandle: FileSystemDirectoryHandle | undefined | null,
 ): Promise<string | undefined> => {
   if (!bankDirHandle) {
     return undefined
@@ -28,10 +29,12 @@ export const getBankName = async (
 
 export const getSampleFileHandle = async (
   bankDirHandle: FileSystemDirectoryHandle,
-  sampleNumber: number
+  sampleNumber: number,
 ): Promise<FileSystemFileHandle | undefined> => {
   const [legacyFileHandle, sampleDirHandle] = await Promise.all([
-    bankDirHandle.getFileHandle(legacySampleFileName(sampleNumber)).catch(console.error),
+    bankDirHandle
+      .getFileHandle(legacySampleFileName(sampleNumber))
+      .catch(console.error),
     bankDirHandle.getDirectoryHandle(String(sampleNumber)).catch(console.error),
   ])
 
@@ -49,10 +52,10 @@ export const getSampleFileHandle = async (
 }
 
 export const getSampleName = (
-  sampleFileHandle: FileSystemFileHandle | undefined
+  sampleFileHandle: FileSystemFileHandle | undefined,
 ): string | undefined => {
-  const name = sampleFileHandle?.name.split('.wav')[0]
-  if (!name?.startsWith('chan-00')) {
+  const name = sampleFileHandle?.name.split(".wav")[0]
+  if (!name?.startsWith("chan-00")) {
     return name
   }
 }

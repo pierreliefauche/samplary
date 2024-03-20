@@ -1,6 +1,6 @@
-import { ComponentProps, FunctionComponent } from 'react'
+import { ComponentProps, FunctionComponent } from "react"
 
-type BrowserProps = ComponentProps<'div'> & {
+type BrowserProps = ComponentProps<"div"> & {
   rootDirHandle: FileSystemDirectoryHandle
 }
 

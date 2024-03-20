@@ -1,1 +1,1 @@
-export { AlmSquidSalmpleBrowser } from './Browser'
+export { AlmSquidSalmpleBrowser } from "./Browser"

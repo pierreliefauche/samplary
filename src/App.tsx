@@ -1,13 +1,20 @@
-import '@mantine/core/styles.css'
+import "@radix-ui/themes/styles.css"
 
-import { MantineProvider } from '@mantine/core'
-import AppShell from './AppShell'
+import { Theme, ThemePanel } from "@radix-ui/themes"
+
+import { Main, Shell } from "./components/layout/styled"
+import FileBrowser from "./FileBrowser"
 
 function App() {
   return (
-    <MantineProvider>
-      <AppShell />
-    </MantineProvider>
+    <Theme>
+      <Shell>
+        <Main>
+          <FileBrowser />
+        </Main>
+      </Shell>
+      <ThemePanel />
+    </Theme>
   )
 }
 

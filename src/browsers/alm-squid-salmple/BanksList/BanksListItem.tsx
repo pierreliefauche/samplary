@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react'
-import { getBankDirHandle, getBankName } from '../utils'
-import { ItemOuter, BankNumber, BankName } from './styled'
+import { useEffect, useState } from "react"
+import { getBankDirHandle, getBankName } from "../utils"
+import { ItemOuter, BankNumber, BankName } from "./styled"
 
 type BanksListItemProps = {
   rootDirHandle: FileSystemDirectoryHandle
@@ -30,7 +30,7 @@ export const BanksListItem = ({
   return (
     <ItemOuter isSelected={isSelected} onClick={onSelect}>
       <BankNumber>{bankNumber}</BankNumber>
-      <BankName>{bankName ?? (dirHandle ? 'no name' : '')}</BankName>
+      <BankName>{bankName ?? (dirHandle ? "no name" : "")}</BankName>
     </ItemOuter>
   )
 }

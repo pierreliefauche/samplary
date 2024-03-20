@@ -1,6 +1,6 @@
-import WavesurferPlayer from '@wavesurfer/react'
-import { useEffect, useState } from 'react'
-import { WaveFile } from 'wavefile'
+import WavesurferPlayer from "@wavesurfer/react"
+import { useEffect, useState } from "react"
+import { WaveFile } from "wavefile"
 
 type Props = {
   fileHandle: FileSystemFileHandle
@@ -41,11 +41,11 @@ export default function WavFile({ fileHandle }: Props) {
         <WavesurferPlayer
           height={100}
           width={600}
-          waveColor={'lightgrey'}
+          waveColor={"lightgrey"}
           url={wavUrl}
           mediaControls
           barWidth={1}
-          progressColor={'grey'}
+          progressColor={"grey"}
           // barGap={1}
           // media[]
           // onReady={onReady}

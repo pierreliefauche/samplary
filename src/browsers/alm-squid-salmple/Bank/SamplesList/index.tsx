@@ -1,14 +1,15 @@
-import { BoxComponentProps, Stack } from '@mantine/core'
-import { range } from 'lodash'
-import { SamplesListItem } from './SamplesListItem'
+import { range } from "lodash"
+import { SamplesListItem } from "./SamplesListItem"
+import { ComponentProps } from "react"
+import { Outer } from "./styled"
 
-type SamplesListProps = BoxComponentProps & {
+type SamplesListProps = ComponentProps<typeof Outer> & {
   bankDirHandle: FileSystemDirectoryHandle
 }
 
 export const SamplesList = ({ bankDirHandle }: SamplesListProps) => {
   return (
-    <Stack>
+    <Outer>
       {range(1, 9).map((sampleNumber) => (
         <SamplesListItem
           key={sampleNumber}
@@ -16,6 +17,6 @@ export const SamplesList = ({ bankDirHandle }: SamplesListProps) => {
           sampleNumber={sampleNumber}
         />
       ))}
-    </Stack>
+    </Outer>
   )
 }
