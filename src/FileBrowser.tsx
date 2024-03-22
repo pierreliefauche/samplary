@@ -1,20 +1,27 @@
-import { useCallback, useState } from "react"
-import { AlmSquidSalmpleBrowser } from "./browsers/alm-squid-salmple"
-import { Button } from "@radix-ui/themes"
+import { useCallback, useState } from 'react'
+import { AlmSquidSalmpleBrowser } from './browsers/alm-squid-salmple'
+import { FsItem, selectRootDirectory } from './file-system'
+import Button from '@atlaskit/button/new'
+import { Flex } from '@atlaskit/primitives'
+import { Content, Main, PageLayout, TopNavigation } from '@atlaskit/page-layout'
 
 export default function FileBrowser() {
-  const [dirHandle, setDirHandle] = useState<FileSystemDirectoryHandle>()
+  const [dir, setDir] = useState<FsItem>()
 
   const selectDirectory = useCallback(async () => {
-    return window.showDirectoryPicker().then(setDirHandle)
-  }, [setDirHandle])
+    return selectRootDirectory().then(setDir)
+  }, [setDir])
 
   return (
-    <>
-      <Button onClick={selectDirectory}>
-        {dirHandle?.name || "Select Directory"}
-      </Button>
-      {!!dirHandle && <AlmSquidSalmpleBrowser rootDirHandle={dirHandle} />}
-    </>
+    <PageLayout>
+      <TopNavigation>
+        <Button onClick={selectDirectory} appearance='primary'>
+          {dir?.name || 'Select Directory'}
+        </Button>
+      </TopNavigation>
+      <Content>
+      {!!dir && <AlmSquidSalmpleBrowser rootDir={dir} />}
+      </Content>
+    </PageLayout>
   )
 }

@@ -10,11 +10,20 @@
     "lint": "npm run lint:eslint && npm run lint:stylelint",
     "lint:eslint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "lint:stylelint": "stylelint '**/*.css' --cache",
-    "prettier": "prettier --check \"**/*.{ts,tsx}\"",
-    "prettier:write": "prettier --write \"**/*.{ts,tsx}\""
+    "prettier": "prettier --check \"**/*.{ts,tsx,js,cjs}\"",
+    "prettier:write": "prettier --write \"**/*.{ts,tsx,js,cjs}\""
   },
   "dependencies": {
-    "@radix-ui/themes": "^2.0.3",
+    "@atlaskit/app-provider": "^1.0.1",
+    "@atlaskit/atlassian-navigation": "^3.3.4",
+    "@atlaskit/button": "^17.7.2",
+    "@atlaskit/css-reset": "^6.7.1",
+    "@atlaskit/heading": "^2.1.2",
+    "@atlaskit/menu": "^2.1.11",
+    "@atlaskit/page-layout": "^3.1.2",
+    "@atlaskit/primitives": "^5.1.2",
+    "@atlaskit/side-navigation": "^3.0.10",
+    "@atlaskit/tokens": "^1.42.1",
     "@wavesurfer/react": "^1.0.4",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
@@ -24,6 +33,8 @@
     "wavefile": "^11.0.0"
   },
   "devDependencies": {
+    "@atlaskit/eslint-plugin-design-system": "^8.38.0",
+    "@atlaskit/stylelint-design-system": "^2.1.2",
     "@types/chrome": "^0.0.263",
     "@types/lodash": "^4.17.0",
     "@types/react": "^18.2.64",
@@ -36,9 +47,6 @@
     "eslint": "^8.57.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
-    "postcss": "^8.4.37",
-    "postcss-preset-mantine": "^1.13.0",
-    "postcss-simple-vars": "^7.0.1",
     "prettier": "^3.2.5",
     "stylelint": "^16.2.1",
     "stylelint-config-standard-scss": "^13.0.0",

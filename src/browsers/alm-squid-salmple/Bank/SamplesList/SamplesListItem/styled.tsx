@@ -1,14 +1,12 @@
-import { Card, Inset } from "@radix-ui/themes"
-import WavesurferPlayer from "@wavesurfer/react"
-import styled from "styled-components"
+import { Bleed, Box } from '@atlaskit/primitives'
+import { token } from '@atlaskit/tokens'
+import WavesurferPlayer from '@wavesurfer/react'
+import styled from 'styled-components'
 
-export const Outer = styled(Card)``
-export const WaveOuter = styled(Inset).attrs(() => ({
-  side: "bottom",
-  mt: "2",
-}))`
+export const Outer = styled(Box)``
+export const WaveOuter = styled(Bleed)`
   height: 50px;
-  border-top: var(--card-border-width) solid var(--gray-3);
+  border-top: ${token('border.width')} solid ${token('color.border')};
 `
 
 export const WaveInner = styled.div`
@@ -22,7 +20,7 @@ export const WaveInner = styled.div`
 export const Wave = styled(WavesurferPlayer).attrs(() => ({
   height: 50,
   // width: 200,
-  waveColor: "lightgrey",
+  waveColor: 'lightgrey',
   barWidth: 1,
-  progressColor: "lightgrey",
+  progressColor: 'lightgrey',
 }))``

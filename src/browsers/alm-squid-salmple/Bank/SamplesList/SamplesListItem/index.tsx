@@ -1,38 +1,47 @@
-import { useEffect, useState } from "react"
-import { getSampleFileHandle, getSampleName } from "../../../utils"
-import { getFileUrl } from "../../../../../utils"
-import { Outer, Wave, WaveOuter, WaveInner } from "./styled"
+import { ChangeEventHandler, useCallback, useEffect, useState } from 'react'
+import {
+  getSampleFileHandle,
+  getSampleName,
+  saveSampleName,
+} from '../../../utils'
+import { Outer, Wave, WaveOuter, WaveInner } from './styled'
+import { useLibrary } from '../../../useLibrary'
+import { getFileUrl } from '../../../../../file-system'
 
 type SamplesListItemProps = {
-  bankDirHandle: FileSystemDirectoryHandle
-  sampleNumber: number
+  bankNumber: string
+  sampleNumber: string
 }
 
 export const SamplesListItem = ({
-  bankDirHandle,
+  bankNumber,
   sampleNumber,
 }: SamplesListItemProps) => {
+  const [library] = useLibrary()
   const [wavUrl, setWavUrl] = useState<string>()
-  const [wavFileHandle, setWavFileHandle] = useState<FileSystemFileHandle>()
+
+  const sample = library.banks[bankNumber]?.samples[sampleNumber]
 
   useEffect(() => {
-    getSampleFileHandle(bankDirHandle, sampleNumber).then(setWavFileHandle)
-  }, [setWavUrl, bankDirHandle, sampleNumber])
+    getFileUrl(sample?.fsItem).then(setWavUrl)
+  }, [setWavUrl, sample?.fsItem])
 
-  useEffect(() => {
-    getFileUrl(wavFileHandle).then(setWavUrl)
-  }, [setWavUrl, wavFileHandle])
+  // const onChangeName: ChangeEventHandler<HTMLInputElement> = useCallback(
+  //   (event) => {
+  //     bankDirHandle &&
+  //       saveSampleName(bankDirHandle, sampleNumber, event.target.value)
+  //   },
+  //   [bankDirHandle, sampleNumber],
+  // )
 
   return (
     <Outer>
       {`Sample ${sampleNumber} `}
-      {getSampleName(wavFileHandle)}
+      {sample?.name}
 
       <WaveOuter>
         <WaveInner>
-          <Wave
-            url={wavUrl}
-          />
+          <Wave url={wavUrl} />
         </WaveInner>
       </WaveOuter>
     </Outer>

@@ -1,20 +1,20 @@
-import { range } from "lodash"
-import { SamplesListItem } from "./SamplesListItem"
-import { ComponentProps } from "react"
-import { Outer } from "./styled"
+import { range } from 'lodash'
+import { SamplesListItem } from './SamplesListItem'
+import { ComponentProps } from 'react'
+import { Outer } from './styled'
 
 type SamplesListProps = ComponentProps<typeof Outer> & {
-  bankDirHandle: FileSystemDirectoryHandle
+  bankNumber: string
 }
 
-export const SamplesList = ({ bankDirHandle }: SamplesListProps) => {
+export const SamplesList = ({ bankNumber }: SamplesListProps) => {
   return (
     <Outer>
       {range(1, 9).map((sampleNumber) => (
         <SamplesListItem
           key={sampleNumber}
-          bankDirHandle={bankDirHandle}
-          sampleNumber={sampleNumber}
+          bankNumber={bankNumber}
+          sampleNumber={String(sampleNumber)}
         />
       ))}
     </Outer>

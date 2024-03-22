@@ -1,9 +1,4 @@
-import { Flex } from "@radix-ui/themes"
-import styled from "styled-components"
+import { Box, Flex, Stack } from '@atlaskit/primitives'
+import styled from 'styled-components'
 
-export const BrowserOuter = styled(Flex).attrs(() => ({
-  // direction: 'column',
-}))`
-  flex: 1;
-  overflow: hidden;
-`
+export const BrowserOuter = styled(Flex)`flex: 1`
