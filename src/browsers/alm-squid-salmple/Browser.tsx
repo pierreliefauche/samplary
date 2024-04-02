@@ -16,11 +16,11 @@ export const AlmSquidSalmpleBrowser: Browser = ({ rootDir }) => {
 
   return (
     <LibraryProvider value={[library]}>
-        <BanksList
-          selectedBankNumber={selectedBankNumber}
-          onSelectBankNumber={setSelectedBankNumber}
-        />
-        <Bank key={selectedBankNumber} bankNumber={selectedBankNumber} />
+      <BanksList
+        selectedBankNumber={selectedBankNumber}
+        onSelectBankNumber={setSelectedBankNumber}
+      />
+      <Bank key={selectedBankNumber} bankNumber={selectedBankNumber} />
     </LibraryProvider>
   )
 }
