@@ -19,9 +19,7 @@ export default function FileBrowser() {
           {dir?.name || 'Select Directory'}
         </Button>
       </TopNavigation>
-      <Content>
-      {!!dir && <AlmSquidSalmpleBrowser rootDir={dir} />}
-      </Content>
+      <Content>{!!dir && <AlmSquidSalmpleBrowser rootDir={dir} />}</Content>
     </PageLayout>
   )
 }

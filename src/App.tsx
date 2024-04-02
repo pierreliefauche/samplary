@@ -1,5 +1,5 @@
 import { AppWrapper } from './design-system/AppWrapper'
-import FileBrowser from "./FileBrowser"
+import FileBrowser from './FileBrowser'
 
 function App() {
   return (

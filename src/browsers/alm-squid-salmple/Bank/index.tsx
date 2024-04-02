@@ -1,4 +1,4 @@
-import { ComponentProps} from 'react'
+import { ComponentProps } from 'react'
 import { SamplesList } from './SamplesList'
 import { Outer } from './styled'
 import { Header } from './Header'

@@ -16,16 +16,16 @@ export const BanksList = ({
 
   return (
     <LeftSidebarWithoutResize width={250} isFixed>
-    <BanksListOuter>
-      {Object.keys(library?.banks).map((bankNumber) => (
-        <BanksListItem
-          key={bankNumber}
-          bankNumber={bankNumber}
-          isSelected={selectedBankNumber === bankNumber}
-          onSelect={() => onSelectBankNumber(bankNumber)}
-        />
-      ))}
-    </BanksListOuter>
+      <BanksListOuter>
+        {Object.keys(library?.banks).map((bankNumber) => (
+          <BanksListItem
+            key={bankNumber}
+            bankNumber={bankNumber}
+            isSelected={selectedBankNumber === bankNumber}
+            onSelect={() => onSelectBankNumber(bankNumber)}
+          />
+        ))}
+      </BanksListOuter>
     </LeftSidebarWithoutResize>
   )
 }
