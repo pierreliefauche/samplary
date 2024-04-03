@@ -1,20 +1,22 @@
-import { range } from 'lodash'
 import { SamplesListItem } from './SamplesListItem'
-import { ComponentProps } from 'react'
 import { Outer } from './styled'
+import { useLibrary } from '../../useLibrary'
 
-type SamplesListProps = ComponentProps<typeof Outer> & {
-  bankNumber: string
+type SamplesListProps = {
+  bankKey: string
 }
 
-export const SamplesList = ({ bankNumber }: SamplesListProps) => {
+export const SamplesList = ({ bankKey }: SamplesListProps) => {
+  const [library] = useLibrary()
+  const bank = library.groups[0]?.banks.find(({ key }) => key === bankKey)
+
   return (
     <Outer>
-      {range(1, 9).map((sampleNumber) => (
+      {bank?.voices.map((voice) => (
         <SamplesListItem
-          key={sampleNumber}
-          bankNumber={bankNumber}
-          sampleNumber={String(sampleNumber)}
+          key={voice.key}
+          bankKey={bankKey}
+          voiceKey={voice.key}
         />
       ))}
     </Outer>

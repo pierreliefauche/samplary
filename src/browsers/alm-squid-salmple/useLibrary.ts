@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react'
-import { Library } from './types'
 import { MOCK_LIBRARY } from './utils'
+import { Library } from '../types'
 
 type LibraryContextValue = [Readonly<Library>]
 

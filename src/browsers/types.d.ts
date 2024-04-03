@@ -1,11 +1,4 @@
-import { ComponentProps, FunctionComponent } from 'react'
 import { FsDir, FsFile } from '../file-system'
-
-type BrowserProps = ComponentProps<'div'> & {
-  rootDir: FsDir
-}
-
-type Browser = FunctionComponent<BrowserProps>
 
 export type Library<G = unknown, B = unknown, V = unknown, S = unknown> = {
   groups: Array<

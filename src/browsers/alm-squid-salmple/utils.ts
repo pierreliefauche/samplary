@@ -2,6 +2,7 @@ import { cloneDeep, range } from 'lodash'
 import {
   FsDir,
   getItemAtPath,
+  hydrateChildren,
   isFsDir,
   isFsFile,
   isWavFile,
@@ -9,9 +10,9 @@ import {
 } from '../../file-system'
 import { Bank, Library as BaseLibrary, Voice } from '../types'
 
-type SquidSalmpleLibrary = BaseLibrary
+export type SquidSalmpleLibrary = BaseLibrary
 
-const MOCK_LIBRARY: SquidSalmpleLibrary = Object.freeze({
+export const MOCK_LIBRARY: SquidSalmpleLibrary = Object.freeze({
   groups: [
     {
       key: '0',
@@ -48,16 +49,18 @@ const bankDirName = (bankNumber: number): string => `Bank ${bankNumber}`
 const legacySampleFileName = (sampleNumber: number | string): string =>
   `chan-00${sampleNumber}.wav`
 
-const cleanName = (name: string): string => {
-  return name
-    .replace(/[^a-z0-9_-]/gi, ' ')
-    .trimStart()
-    .substring(0, 8)
-}
+// const cleanName = (name: string): string => {
+//   return name
+//     .replace(/[^a-z0-9_-]/gi, ' ')
+//     .trimStart()
+//     .substring(0, 8)
+// }
 
 export const buildLibrary = async (
   rootDir: FsDir,
 ): Promise<SquidSalmpleLibrary> => {
+  await hydrateChildren(rootDir)
+
   const library = cloneDeep(MOCK_LIBRARY)
 
   await Promise.all(

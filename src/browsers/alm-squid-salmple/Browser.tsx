@@ -1,26 +1,34 @@
-import { Browser } from '../types'
 import { BanksList } from './BanksList'
-import { useEffect, useState } from 'react'
+import { ComponentProps, useEffect, useState } from 'react'
 import { Bank } from './Bank'
 import { Provider as LibraryProvider } from './useLibrary'
-import { Library } from './types'
-import { MOCK_LIBRARY, buildLibrary } from './utils'
+import { MOCK_LIBRARY, SquidSalmpleLibrary, buildLibrary } from './utils'
+import { FsDir } from '../../file-system'
 
-export const AlmSquidSalmpleBrowser: Browser = ({ rootDir }) => {
-  const [selectedBankNumber, setSelectedBankNumber] = useState<string>('1')
-  const [library, setLibrary] = useState<Library>(MOCK_LIBRARY)
+type BrowserProps = ComponentProps<'div'> & {
+  rootDir: FsDir
+}
+
+export const Browser = ({ rootDir }: BrowserProps) => {
+  const [library, setLibrary] = useState<SquidSalmpleLibrary>(MOCK_LIBRARY)
+  const [selectedBankKey, setSelectedBankKey] = useState<string>(
+    library.groups[0]?.banks[0]?.key,
+  )
 
   useEffect(() => {
-    buildLibrary(rootDir).then(setLibrary)
+    buildLibrary(rootDir).then((l) => {
+      setLibrary(l)
+      setSelectedBankKey(l.groups[0]?.banks[0]?.key)
+    })
   }, [rootDir])
 
   return (
     <LibraryProvider value={[library]}>
       <BanksList
-        selectedBankNumber={selectedBankNumber}
-        onSelectBankNumber={setSelectedBankNumber}
+        selectedBankKey={selectedBankKey}
+        onSelectBankKey={setSelectedBankKey}
       />
-      <Bank key={selectedBankNumber} bankNumber={selectedBankNumber} />
+      <Bank key={selectedBankKey} bankKey={selectedBankKey} />
     </LibraryProvider>
   )
 }

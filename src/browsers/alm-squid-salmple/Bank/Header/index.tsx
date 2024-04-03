@@ -2,10 +2,10 @@ import { Outer, Title } from './styled'
 import { useLibrary } from '../../useLibrary'
 
 type HeaderProps = {
-  bankNumber: string
+  bankKey: string
 }
 
-export const Header = ({ bankNumber }: HeaderProps) => {
+export const Header = ({ bankKey }: HeaderProps) => {
   const [library] = useLibrary()
 
   // const onChangeBankName: ChangeEventHandler<HTMLInputElement> = useCallback(
@@ -16,11 +16,13 @@ export const Header = ({ bankNumber }: HeaderProps) => {
   //   [bankDirHandle, setBankName],
   // )
 
+  const bank = library.groups[0]?.banks.find(({ key }) => key === bankKey)
+
   return (
     <Outer>
       <Title>
-        {`Bank ${bankNumber}`}
-        {library.banks[bankNumber]?.name?.value}
+        {bank?.key}
+        {bank?.name}
       </Title>
     </Outer>
   )

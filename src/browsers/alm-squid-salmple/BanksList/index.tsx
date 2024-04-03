@@ -1,28 +1,28 @@
 import { BanksListItem } from './BanksListItem'
 import { BanksListOuter } from './styled'
 import { useLibrary } from '../useLibrary'
-import { LeftSidebar, LeftSidebarWithoutResize } from '@atlaskit/page-layout'
+import { LeftSidebarWithoutResize } from '@atlaskit/page-layout'
 
 type BanksListProps = {
-  selectedBankNumber: string | undefined | null
-  onSelectBankNumber: (bankNumber: string) => void
+  selectedBankKey: string | undefined | null
+  onSelectBankKey: (bankKey: string) => void
 }
 
 export const BanksList = ({
-  selectedBankNumber,
-  onSelectBankNumber,
+  selectedBankKey,
+  onSelectBankKey,
 }: BanksListProps) => {
   const [library] = useLibrary()
 
   return (
     <LeftSidebarWithoutResize width={250} isFixed>
       <BanksListOuter>
-        {Object.keys(library?.banks).map((bankNumber) => (
+        {library?.groups[0].banks.map((bank) => (
           <BanksListItem
-            key={bankNumber}
-            bankNumber={bankNumber}
-            isSelected={selectedBankNumber === bankNumber}
-            onSelect={() => onSelectBankNumber(bankNumber)}
+            key={bank.key}
+            bankKey={bank.key}
+            isSelected={selectedBankKey === bank.key}
+            onSelect={() => onSelectBankKey(bank.key)}
           />
         ))}
       </BanksListOuter>

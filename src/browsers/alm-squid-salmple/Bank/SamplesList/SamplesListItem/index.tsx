@@ -1,30 +1,29 @@
-import { ChangeEventHandler, useCallback, useEffect, useState } from 'react'
-import {
-  getSampleFileHandle,
-  getSampleName,
-  saveSampleName,
-} from '../../../utils'
+import { useEffect, useState } from 'react'
 import { Outer, Wave, WaveOuter, WaveInner } from './styled'
 import { useLibrary } from '../../../useLibrary'
 import { getFileUrl } from '../../../../../file-system'
 
 type SamplesListItemProps = {
-  bankNumber: string
-  sampleNumber: string
+  bankKey: string
+  voiceKey: string
 }
 
 export const SamplesListItem = ({
-  bankNumber,
-  sampleNumber,
+  bankKey,
+  voiceKey,
 }: SamplesListItemProps) => {
   const [library] = useLibrary()
+  const bank = library.groups[0]?.banks.find(({ key }) => key === bankKey)
+  const voice = bank?.voices.find(({ key }) => key === voiceKey)
+  const sample = voice?.samples[0]
+
   const [wavUrl, setWavUrl] = useState<string>()
 
-  const sample = library.banks[bankNumber]?.samples[sampleNumber]
-
   useEffect(() => {
-    getFileUrl(sample?.fsItem).then(setWavUrl)
-  }, [setWavUrl, sample?.fsItem])
+    if (sample?.fsFile) {
+      getFileUrl(sample?.fsFile).then(setWavUrl)
+    }
+  }, [setWavUrl, sample?.fsFile])
 
   // const onChangeName: ChangeEventHandler<HTMLInputElement> = useCallback(
   //   (event) => {
@@ -36,8 +35,8 @@ export const SamplesListItem = ({
 
   return (
     <Outer>
-      {`Sample ${sampleNumber} `}
-      {sample?.name}
+      {`Sample ${sample?.key} `}
+      {voice?.name || sample?.fsFile?.name}
 
       <WaveOuter>
         <WaveInner>

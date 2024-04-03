@@ -1,12 +1,11 @@
 import { useCallback, useState } from 'react'
-import { AlmSquidSalmpleBrowser } from './browsers/alm-squid-salmple'
-import { FsItem, selectRootDirectory } from './file-system'
+import { Browser as LibraryBrowser } from './browsers/alm-squid-salmple'
+import { FsDir, selectRootDirectory } from './file-system'
 import Button from '@atlaskit/button/new'
-import { Flex } from '@atlaskit/primitives'
-import { Content, Main, PageLayout, TopNavigation } from '@atlaskit/page-layout'
+import { Content, PageLayout, TopNavigation } from '@atlaskit/page-layout'
 
 export default function FileBrowser() {
-  const [dir, setDir] = useState<FsItem>()
+  const [dir, setDir] = useState<FsDir>()
 
   const selectDirectory = useCallback(async () => {
     return selectRootDirectory().then(setDir)
@@ -19,7 +18,7 @@ export default function FileBrowser() {
           {dir?.name || 'Select Directory'}
         </Button>
       </TopNavigation>
-      <Content>{!!dir && <AlmSquidSalmpleBrowser rootDir={dir} />}</Content>
+      <Content>{!!dir && <LibraryBrowser rootDir={dir} />}</Content>
     </PageLayout>
   )
 }
