@@ -59,7 +59,7 @@ export const MOCK_LIBRARY: SquidSalmpleLibrary = Object.freeze({
 export const buildLibrary = async (
   rootDir: FsDir,
 ): Promise<SquidSalmpleLibrary> => {
-  await hydrateChildren(rootDir, true)
+  await hydrateChildren(rootDir, { recursive: true })
 
   const library = cloneDeep(MOCK_LIBRARY)
 

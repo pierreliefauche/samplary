@@ -1,11 +1,13 @@
-import TreeView, { flattenTree } from 'react-accessible-treeview'
+import _TreeView, { flattenTree } from 'react-accessible-treeview'
 import { FsDir } from '../file-system'
 import { useMemo } from 'react'
 import styled from 'styled-components'
 import { token } from '@atlaskit/tokens'
+import { Scrollable } from './Scrollable'
+import { Stack } from '@atlaskit/primitives'
 
-const Outer = styled.div`
-  .tree,
+const TreeView = styled(_TreeView)`
+  &,
   .tree-node-group {
     list-style: none;
     margin: 0;
@@ -36,13 +38,15 @@ export const FsBrowser = ({ rootDir }: FsBrowserProps) => {
   const data = useMemo(() => flattenTree(rootDir), [rootDir])
 
   return (
-    <Outer>
-      <TreeView
-        data={data}
-        nodeRenderer={({ element, getNodeProps }) => (
-          <div {...getNodeProps()}>{element.name}</div>
-        )}
-      />
-    </Outer>
+    <Stack grow={'hug'}>
+      <Scrollable>
+        <TreeView
+          data={data}
+          nodeRenderer={({ element, getNodeProps }) => (
+            <div {...getNodeProps()}>{element.name}</div>
+          )}
+        />
+      </Scrollable>
+    </Stack>
   )
 }

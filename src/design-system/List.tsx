@@ -1,7 +1,5 @@
 import { ReactNode } from 'react'
-import { Stack } from './Stack'
-import { Box } from './Box'
-import styled from 'styled-components'
+import { Box, Stack, xcss } from '@atlaskit/primitives'
 import { token } from '@atlaskit/tokens'
 
 type ListProps = {
@@ -12,25 +10,31 @@ export const List = ({ ...stackProps }: ListProps) => {
   return <Stack {...stackProps} />
 }
 
+const itemStyles = xcss({
+  cursor: 'pointer',
+  ':hover': {
+    background: token('color.background.neutral.subtle.hovered'),
+  },
+})
+
 type ListItemProps = {
   children: ReactNode
 }
 
-List.Item = styled(({ ...boxProps }: ListItemProps) => {
-  return <Box {...boxProps} />
-})`
-  &:hover {
-    color: ${token('color.background.accent.blue.bolder')};
-  }
-`
+List.Item = ({ ...boxProps }: ListItemProps) => {
+  return <Box xcss={itemStyles} {...boxProps} />
+}
+
+const sectionStyles = xcss({
+  position: 'sticky',
+  top: token('space.0'),
+  background: token('color.background.accent.gray.subtlest'),
+})
 
 type ListSectionHeaderProps = {
   children: ReactNode
 }
 
-List.SectionHeader = styled(({ ...boxProps }: ListSectionHeaderProps) => {
-  return <Box {...boxProps} />
-})`
-  background: ${token('color.background.warning')};
-  position: sticky;
-`
+List.SectionHeader = ({ ...boxProps }: ListSectionHeaderProps) => {
+  return <Box xcss={sectionStyles} {...boxProps} />
+}
