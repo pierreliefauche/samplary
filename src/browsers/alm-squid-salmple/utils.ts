@@ -12,6 +12,12 @@ import { Bank, Library as BaseLibrary, Voice } from '../types'
 
 export type SquidSalmpleLibrary = BaseLibrary
 
+const BANK_NAME_FILE = 'info.txt'
+
+const bankDirName = (bankNumber: number): string => `Bank ${bankNumber}`
+const legacySampleFileName = (sampleNumber: number | string): string =>
+  `chan-00${sampleNumber}.wav`
+
 export const MOCK_LIBRARY: SquidSalmpleLibrary = Object.freeze({
   groups: [
     {
@@ -43,12 +49,6 @@ export const MOCK_LIBRARY: SquidSalmpleLibrary = Object.freeze({
   ],
 })
 
-const BANK_NAME_FILE = 'info.txt'
-
-const bankDirName = (bankNumber: number): string => `Bank ${bankNumber}`
-const legacySampleFileName = (sampleNumber: number | string): string =>
-  `chan-00${sampleNumber}.wav`
-
 // const cleanName = (name: string): string => {
 //   return name
 //     .replace(/[^a-z0-9_-]/gi, ' ')
@@ -59,7 +59,7 @@ const legacySampleFileName = (sampleNumber: number | string): string =>
 export const buildLibrary = async (
   rootDir: FsDir,
 ): Promise<SquidSalmpleLibrary> => {
-  await hydrateChildren(rootDir)
+  await hydrateChildren(rootDir, true)
 
   const library = cloneDeep(MOCK_LIBRARY)
 
