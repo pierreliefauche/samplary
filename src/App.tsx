@@ -1,10 +1,10 @@
 import { AppWrapper } from './design-system/AppWrapper'
-import FileBrowser from './FileBrowser'
+import Browser from './Browser'
 
 function App() {
   return (
     <AppWrapper>
-      <FileBrowser />
+      <Browser />
     </AppWrapper>
   )
 }

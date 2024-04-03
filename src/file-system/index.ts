@@ -1,5 +1,5 @@
-import { sortBy } from 'lodash'
 import { FsDir, FsFile } from './types'
+import { sortChildren } from './sortChildren'
 
 export type { FsDir, FsFile }
 
@@ -31,10 +31,16 @@ export const selectRootDirectory = async (): Promise<FsDir> => {
   }
 }
 
+type HydrateChildrenOptions = {
+  recursive: boolean
+}
+
 export const hydrateChildren = async (
   fsDir: FsDir,
-  recursive = false,
+  opts: HydrateChildrenOptions,
 ): Promise<FsDir> => {
+  const { recursive } = opts
+
   if (!fsDir.children && isFsDir(fsDir)) {
     const children = []
 
@@ -56,7 +62,7 @@ export const hydrateChildren = async (
             children: undefined,
           }
           if (recursive) {
-            await hydrateChildren(child, recursive)
+            await hydrateChildren(child, opts)
           }
           break
         default:
@@ -66,7 +72,7 @@ export const hydrateChildren = async (
     }
 
     // Sort children by name
-    fsDir.children = sortBy(children, 'name')
+    fsDir.children = sortChildren(children)
   }
 
   return fsDir
