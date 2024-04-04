@@ -3,15 +3,18 @@ import { FsDir, hydrateChildren, selectRootDirectory } from './file-system'
 import { FsBrowser } from './design-system/FsBrowser'
 import { LibraryBrowser } from './design-system/LibraryBrowser'
 import { Library } from './browsers/types'
-// import { buildLibrary } from './browsers/alm-squid-salmple/utils'
-import { buildLibrary } from './browsers/squarp-rample/utils'
-import { Box, Inline, Stack } from '@atlaskit/primitives'
-
+import { buildLibrary as buildAlmSquidSalmpleLibrary } from './browsers/alm-squid-salmple/utils'
+import { buildLibrary as buildSquarpRampleLibrary } from './browsers/squarp-rample/utils'
+import { Inline, Stack } from '@atlaskit/primitives'
 import Button from '@atlaskit/button/new'
+import Select from '@atlaskit/select'
 
 export default function FileBrowser() {
   const [dir, setDir] = useState<FsDir>()
   const [lib, setLib] = useState<Library>()
+  const [viewAs, setViewAs] = useState<{ value: string; label: string } | null>(
+    { value: 'fs', label: 'File System' },
+  )
 
   const selectDirectory = useCallback(async () => {
     return selectRootDirectory()
@@ -20,20 +23,39 @@ export default function FileBrowser() {
   }, [setDir])
 
   useEffect(() => {
+    setLib(undefined)
     if (dir) {
-      buildLibrary(dir).then(setLib)
+      if (viewAs?.value === 'squid') {
+        buildAlmSquidSalmpleLibrary(dir).then(setLib)
+      } else if (viewAs?.value === 'rample') {
+        buildSquarpRampleLibrary(dir).then(setLib)
+      }
     }
-  }, [dir])
+  }, [dir, viewAs?.value])
 
   return (
     <Stack grow={'fill'} space={'space.100'}>
-      <Box>
+      <Inline space={'space.050'}>
         <Button onClick={selectDirectory}>{'Select directory'}</Button>
-      </Box>
-      <Inline grow={'fill'} alignBlock={'stretch'}>
-        {!!dir && <FsBrowser rootDir={dir} />}
-        {!!lib && <LibraryBrowser library={lib} />}
+        <Select
+          spacing={'compact'}
+          options={[
+            { label: 'File System', value: 'fs' },
+            { label: 'ALM Squid Salmple', value: 'squid' },
+            { label: 'Squarp Rample', value: 'rample' },
+          ]}
+          placeholder={'View as'}
+          onChange={setViewAs}
+          value={viewAs}
+        />
       </Inline>
+      {dir && viewAs?.value === 'fs' ? (
+        <FsBrowser rootDir={dir} />
+      ) : lib ? (
+        <LibraryBrowser library={lib} />
+      ) : (
+        'nothing to show'
+      )}
     </Stack>
   )
 }

@@ -1,10 +1,5 @@
 import { cloneDeep, range } from 'lodash'
-import {
-  FsDir,
-  hydrateChildren,
-  isFsFile,
-  isWavFile,
-} from '../../file-system'
+import { FsDir, hydrateChildren, isFsFile, isWavFile } from '../../file-system'
 import { Bank, Library as BaseLibrary, Voice } from '../types'
 
 export type SquarpRampleLibrary = BaseLibrary

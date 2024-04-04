@@ -38,7 +38,7 @@ export const FsBrowser = ({ rootDir }: FsBrowserProps) => {
   const data = useMemo(() => flattenTree(rootDir), [rootDir])
 
   return (
-    <Stack grow={'hug'}>
+    <Stack grow={'fill'}>
       <Scrollable>
         <TreeView
           data={data}

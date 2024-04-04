@@ -1,31 +1,36 @@
-import { Fragment } from 'react/jsx-runtime'
 import { Library } from '../../browsers/types'
-import { List } from '../List'
 import { Inline } from '@atlaskit/primitives'
-import { Scrollable } from '../Scrollable'
-import Heading from '@atlaskit/heading'
+import { useMemo, useState } from 'react'
+import { BanksList } from './BanksList'
+import { Bank } from './Bank'
 
 type LibraryBrowserProps = {
   library: Library
 }
 
 export const LibraryBrowser = ({ library }: LibraryBrowserProps) => {
+  const [selectedBankKey, setSelectedBankKey] = useState<string>(
+    library.groups[0]?.banks[0]?.key,
+  )
+
+  const selectedBank = useMemo(() => {
+    for (const group of library.groups) {
+      for (const bank of group.banks || []) {
+        if (bank.key === selectedBankKey) {
+          return bank
+        }
+      }
+    }
+  }, [library, selectedBankKey])
+
   return (
-    <Inline alignBlock={'stretch'}>
-      <List>
-        <Scrollable>
-          {library.groups.map((group) => (
-            <Fragment key={group.key}>
-              <List.SectionHeader>
-                <Heading size={'xxsmall'}>{group.name || group.key}</Heading>
-              </List.SectionHeader>
-              {group.banks.map((bank) => (
-                <List.Item key={bank.key}>{bank.name || bank.key}</List.Item>
-              ))}
-            </Fragment>
-          ))}
-        </Scrollable>
-      </List>
+    <Inline alignBlock={'stretch'} grow={'fill'}>
+      <BanksList
+        library={library}
+        selectedBankKey={selectedBankKey}
+        onSelectBankKey={setSelectedBankKey}
+      />
+      <Bank.Outer>{!!selectedBank && <Bank bank={selectedBank} />}</Bank.Outer>
     </Inline>
   )
 }
