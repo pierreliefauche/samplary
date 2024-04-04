@@ -15,6 +15,12 @@ export const isFsDir = (
   return item?.kind === 'directory'
 }
 
+export const isHiddenFsItem = (
+  item: FsFile | FsDir | null | undefined,
+): boolean => {
+  return Boolean(item?.name && item.name.startsWith('.'))
+}
+
 export const isWavFile = (
   item: FsFile | FsDir | null | undefined,
 ): item is FsFile => {
